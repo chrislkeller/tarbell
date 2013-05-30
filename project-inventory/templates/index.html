@@ -1,0 +1,488 @@
+{# The default project templates assumes a _base.html template to be extended. #}
+{% extends '_base.html' %}
+
+{% block meta %}
+{{ super() }}
+{% endblock %}
+
+{% block css %}
+{{ super() }}
+    <link href="css/project-styles.css" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block data_details_content %}
+<div id="content-article">
+    <h4 class="kicker">{{ project_kicker|safe }}</h4>
+    <h1>{{ project_headline }}</h1>
+
+    <div id="content-article-metadata">
+        <p>
+        {% if project_credits %}
+            <span class="credits">{{ project_credits|safe }}</span> |
+        {% else %}
+        {% endif %}
+        <span class="pubdate">{{ project_pubdate }}</span>
+        </p>
+    </div>
+
+    {% if project_article_text %}
+        <div id="content-article-text">
+            {{ project_article_text|safe }}
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_readmore_link %}
+        <div id="content-article-buttons">
+            <a class="btn btn-info" href="{{ project_readmore_link }}">Read More</a>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_data_instructions %}
+        <div id="content-explainer">
+            <p><span class="data-instructions">{{ project_data_instructions|safe }}</span></p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    <div id="content-section-navigation">
+        <a href="#Crime &amp; Public Safety" class="name">Crime &amp; Public Safety</a> |
+        <a href="#Culture" class="name">Culture</a> |
+        <a href="#Economy &amp; Money" class="name">Economy &amp; Money</a> |
+        <a href="#Education" class="name">Education</a> |
+        <a href="#Environment &amp; Science" class="name">Environment &amp; Science</a> |
+        <a href="#General" class="name">General</a> |
+        <a href="#Health" class="name">Health</a> |
+        <a href="#Politics" class="name">Politics</a> |
+        <a href="#Seasonal" class="name">Seasonal</a> |
+        <a href="#Transportation" class="name">Transportation</a>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block data_visuals_content %}
+    <a id="Crime &amp; Public Safety">
+        <h4 class="section-title">Crime &amp; Public Safety</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Crime & Public Safety' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Culture">
+        <h4 class="section-title">Culture</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Culture' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Economy &amp; Money">
+        <h4 class="section-title">Economy &amp; Money</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Economy & Money' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Education">
+        <h4 class="section-title">Education</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Education' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Environment &amp; Science">
+        <h4 class="section-title">Environment &amp; Science</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Environment & Science' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="General">
+        <h4 class="section-title">General</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'General' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Health">
+        <h4 class="section-title">Health</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Health' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Politics">
+        <h4 class="section-title">Politics</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Politics' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Seasonal">
+        <h4 class="section-title">Seasonal</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Seasonal' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Transportation">
+        <h4 class="section-title">Transportation</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Transportation' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                       <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Created: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block data_footer_content %}
+    {% if project_embed == 'True' %}
+        <div id="embed-this">
+            <p class="hidden-tablet hidden-phone"><span class="btn btn-warning" style="cursor:pointer;" onclick="embedBox()">Embed this map</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_sources %}
+        <div id="sources">
+            <p class="normal-display"><strong>Source(s): </strong>{{ project_sources|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_open_source %}
+        <div id="open-source">
+            <p class="small-display">{{ project_open_source|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+{% endblock %}
+
+{% block kpcc_scripts %}
+{{ super() }}
+{% endblock %}
+
+{% block kpcc_analytics %}
+    {% if project_analytics == 'True' %}
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-624724-5']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+        <script type="text/javascript">
+            var _sf_async_config={uid:2825,domain:"projects.scpr.org"};
+            (function(){
+                function loadChartbeat() {
+                    window._sf_endpt=(new Date()).getTime();
+                    var e = document.createElement('script');
+                    e.setAttribute('language', 'javascript');
+                    e.setAttribute('type', 'text/javascript');
+                    e.setAttribute('src',
+                        (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") + "js/chartbeat.js");
+                    document.body.appendChild(e);
+                };
+                var oldonload = window.onload;
+                window.onload = (typeof window.onload != 'function') ? loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        </script>
+    {% else %}
+
+    {% endif %}
+{% endblock %}
