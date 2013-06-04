@@ -71,6 +71,8 @@ DEFAULT_CONTEXT = {
     # takes HTML. Will not render if blank
     'project_article_text': '{{ project_article_text }}',
 
+    'project_image_url': '{{ project_image_url }}',
+
     # hyperlink to the CMS story. Will not render if blank
     'project_readmore_link': '{{ project_readmore_link }}',
 
@@ -88,6 +90,10 @@ DEFAULT_CONTEXT = {
 
     # set to True to enable
     'project_analytics': '{{ project_analytics }}',
+
+    # set to True to enable
+    'project_comments': '{{ project_comments }}',
+
 }
 
 """

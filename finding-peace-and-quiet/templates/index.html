@@ -50,11 +50,11 @@
 {% endblock %}
 
 {% block data_visuals_content %}
-    <div id="content-background"></div>
-    <div id="content-display"></div>
     <div id="content-map-container">
         <div id="content-map-canvas"></div>
     </div>
+    <div id="content-background"></div>
+    <div id="content-display"></div>
 {% endblock %}
 
 {% block data_footer_content %}
@@ -88,7 +88,7 @@
     <script src="http://projects.scpr.org/static/static-files/bootstrap-v222/bootstrap.min.js"></script>
 
     <script>
-        var dataSource = "{{ static_url('finding-peace-and-quiet', '/data/peace_and_quiet.json') }}";
+        var dataSource = "{{ static_url('finding-peace-and-quiet', '/data/peace_and_quiet_handlebars.json') }}";
     </script>
 
     <script src="{{ static_url('finding-peace-and-quiet', '/js/data-script.js') }}"></script>

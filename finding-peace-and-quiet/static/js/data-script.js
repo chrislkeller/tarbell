@@ -167,7 +167,7 @@ function bindInfoWindow(marker, map, html) {
 
 jQuery.fn.center = function () {
 	this.css('position','absolute');
-	this.css('top', ( jqueryNoConflict(window).height() - this.height() ) / 2+jqueryNoConflict(window).scrollTop() + 'px');
+	this.css('top', ( jqueryNoConflict(window).height() - this.height() ) / 4+jqueryNoConflict(window).scrollTop() + 'px');
 	this.css('left', ( jqueryNoConflict(window).width() - this.width() ) / 2+jqueryNoConflict(window).scrollLeft() + 'px');
 	return this;
 }
