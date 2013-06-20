@@ -84,7 +84,7 @@ Don't render to static HTML.
 """
 Don't create JSON for project (default: true)
 """
-# CREATE_JSON = False
+CREATE_JSON = False
 
 """
 Uncomment the following lines to provide this configuration file as a Flask
