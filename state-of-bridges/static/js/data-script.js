@@ -11,7 +11,9 @@ jqueryNoConflict(document).ready(function() {
 
     jqueryNoConflict(function() {
         MapsLib.initialize();
+
         jqueryNoConflict("#search_address").geocomplete();
+
         jqueryNoConflict(':checkbox').click(function(){
             MapsLib.doSearch();
         });
@@ -46,6 +48,13 @@ jqueryNoConflict(document).ready(function() {
                 return false;
             }
         });
+
+        /*
+        setTimeout(function() {
+            MapsLib.uncacheTiles();
+        }, 5000);
+        */
+
     });
 
 	jqueryNoConflict('#content-background').click(function(){

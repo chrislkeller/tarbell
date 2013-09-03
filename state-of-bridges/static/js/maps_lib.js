@@ -14,7 +14,11 @@ var MapsLib = MapsLib || {};
 
 var MapsLib = {
 
+    // five_county_bridge_new
     fusionTableId: "1IHw19kbHZ7RLJmFKITdyRbhKYJk0EDsFO7ZJA3o",
+
+    // late night fix table
+    //fusionTableId: "1TF6LDt6cD4cpdQTxMgAPRc9quGANq9mXJw5ldw8",
 
     googleApiKey: "AIzaSyCgh93OAbzooidV0OUpIOoc6kTxV5o69do",
 
@@ -28,25 +32,31 @@ var MapsLib = {
 
     locationScope: "California",
 
-    recordName: "result",
+    recordName: "bridge",
 
-    recordNamePlural: "results",
+    recordNamePlural: "bridges",
 
     searchRadius: 8047,
-
-    defaultZoom: 8,
 
     addrMarkerImage: 'http://projects.scpr.org/static/static-files/images/maps-icons-collection/blue-pushpin.png',
 
     currentPinpoint: null,
 
     initialize: function() {
+
         $( "#result_count" ).html("");
 
         geocoder = new google.maps.Geocoder();
 
+        // set zoom for mobile devices
+        if (navigator.userAgent.match(/(iPhone)|(iPod)|(android)|(webOS)/i)) {
+            defaultZoom = 6;
+        } else {
+            defaultZoom = 8;
+        }
+
         var myOptions = {
-            zoom: MapsLib.defaultZoom,
+            zoom: defaultZoom,
             center: MapsLib.map_centroid,
             scrollwheel: false,
             draggable: true,
@@ -79,9 +89,14 @@ var MapsLib = {
         $("#search_address").val(MapsLib.convertToPlainString($.address.parameter('address')));
         var loadRadius = MapsLib.convertToPlainString($.address.parameter('radius'));
 
-        if (loadRadius != "") $("#search_radius").val(loadRadius);
-        else $("#search_radius").val(MapsLib.searchRadius);
-        $(":checkbox").attr("checked", "checked");
+        if (loadRadius != ""){
+            $("#search_radius").val(loadRadius);
+        } else {
+            $("#search_radius").val(MapsLib.searchRadius);
+        }
+
+        $("#rbTypeAll").attr("checked", "checked");
+
         $("#result_count").hide();
 
         // begin custom initializers
@@ -93,11 +108,11 @@ var MapsLib = {
         var maxDate = moment();
 
         // now minus how much to open the filter range
-        var startDate = moment().subtract('years', 123);
+        var startDate = moment().subtract('years', 124);
 
         // now
         var endDate = moment();
-        MapsLib.initializeDateSlider(minDate, maxDate, startDate, endDate, "days", 7);
+        MapsLib.initializeDateSlider(minDate, maxDate, startDate, endDate, "years", 1);
 
         $("#bhi-slider").slider({
             orientation: "horizontal",
@@ -109,22 +124,6 @@ var MapsLib = {
             slide: function (event, ui) {
                 $("#bhi-selected-start").html(ui.values[0]);
                 $("#bhi-selected-end").html(ui.values[1]);
-            },
-            stop: function(event, ui) {
-                MapsLib.doSearch();
-            }
-        });
-
-        $("#ntl-slider").slider({
-            orientation: "horizontal",
-            range: true,
-            min: 0,
-            max: 100,
-            values: [0, 100],
-            step: 1,
-            slide: function (event, ui) {
-                $("#ntl-selected-start").html(ui.values[0]);
-                $("#ntl-selected-end").html(ui.values[1]);
             },
             stop: function(event, ui) {
                 MapsLib.doSearch();
@@ -147,23 +146,6 @@ var MapsLib = {
             }
         });
 
-        $("#length-slider").slider({
-            orientation: "horizontal",
-            range: true,
-            min: 0,
-            max: 2000,
-            values: [0, 2000],
-            step: 1,
-            slide: function (event, ui) {
-                $("#length-selected-start").html(ui.values[0]);
-                $("#length-selected-end").html(ui.values[1]);
-            },
-            stop: function(event, ui) {
-                MapsLib.doSearch();
-            }
-        });
-
-
         // end custom initializers
 
         //run the default search
@@ -177,19 +159,12 @@ var MapsLib = {
         var whereClause = MapsLib.locationColumn + " not equal to ''";
 
         var status_column = "status";
-        var statusWhereClause = [];
-        if ( $("#rbType10").is(':checked')) statusWhereClause.push("1");
-        if ( $("#rbType20").is(':checked')) statusWhereClause.push("2");
-        if ( $("#rbType30").is(':checked')) statusWhereClause.push("0");
-        if ( $("#rbType30").is(':checked')) statusWhereClause.push("");
-        whereClause += " AND " + status_column + " IN ('" + statusWhereClause.join('\',\'') + "')";
+        if ( $("#rbTypeSd").is(':checked')) whereClause += " AND " + status_column + "=1";
+        if ( $("#rbTypeFo").is(':checked')) whereClause += " AND " + status_column + "=2";
+        if ( $("#rbTypeNd").is(':checked')) whereClause += " AND " + status_column + "=0";
 
-        // begin custom filters
         var type_column = "fracture_critical_status";
-        var typeWhereClause = [];
-        if ( $("#rbType1").is(':checked')) typeWhereClause.push("1");
-        if ( $("#rbType2").is(':checked')) typeWhereClause.push("0");
-        whereClause += " AND " + type_column + " IN ('" + typeWhereClause.join('\',\'') + "')";
+        if ( $("#cbTypeFc").is(':checked')) whereClause += " AND " + type_column + "=1";
 
         // bhi slider filter
         whereClause += " AND 'cbhi_rating' >= '" + $("#bhi-selected-start").html() + "'";
@@ -390,6 +365,13 @@ var MapsLib = {
         return decodeURIComponent(text);
     },
 
+    uncacheTiles: function() {
+        $("img[src*='googleapis']").each(function(){
+            $(this).attr("src",$(this).attr("src")+"&"+(new Date()).getTime());
+            //console.log($(this).attr("src"));
+        });
+    },
+
     mapClickListener: function() {
         google.maps.event.addListener(MapsLib.searchrecords, 'click', function(e) {
 
@@ -406,32 +388,79 @@ var MapsLib = {
                 nbi_sufficiency_rating: e.row['nbi_sufficiency_rating'].value,
                 cbhi_rating: e.row['cbhi_rating'].value,
                 year_built: e.row['year_built'].value,
-                avg_daily_traffic: e.row['avg_daily_traffic'].value,
+                avg_daily_traffic: MapsLib.addCommas(e.row['avg_daily_traffic'].value),
                 lanes: e.row['lanes'].value,
-                width: e.row['width'].value,
-                length: e.row['length'].value
+                width: roundDecimal(e.row['width'].value),
+                length: roundDecimal(e.row['length'].value)
             }
-
-            _.templateSettings.interpolate = /\{\{(.+?)\}\}/g;
 
             var html = _.template(
                 '<p style="float: right" id="close"><strong>[X]</strong></p>' +
-                '<p> bridge_number: {{ bridge_number }}</p>' +
-                '<p> county: {{ county }}</p>' +
-                '<p> agency: {{ agency }}</p>' +
-                '<p> latitude: {{ latitude }}</p>' +
-                '<p> longitude: {{ longitude }}</p>' +
-                '<p> facility_carried: {{ facility_carried }}</p>' +
-                '<p> feature_intersected: {{ feature_intersected }}</p>' +
-                '<p> natl_fracture_critical: {{ natl_fracture_critical }}</p>' +
-                '<p> status: {{ status }}</p>' +
-                '<p> nbi_sufficiency_rating: {{ nbi_sufficiency_rating }}</p>' +
-                '<p> cbhi_rating: {{ cbhi_rating }}</p>' +
-                '<p> year_built: {{ year_built }}</p>' +
-                '<p> avg_daily_traffic: {{ avg_daily_traffic }}</p>' +
-                '<p> lanes: {{ lanes }}</p>' +
-                '<p> width: {{ width }}</p>' +
-                '<p> length: {{ length }}</p>', fusionTableObject);
+
+                '<h4><%= facility_carried %> bridge</h4>' +
+
+                '<ul class="chartlist">' +
+                    '<li>' +
+                        '<% if (cbhi_rating === "0" || cbhi_rating === "" || cbhi_rating === null) { %>' +
+                            '<a href="javascript:void(0)">Ca. Bridge Health Index: n/a</a><span class="index california-bridges" style="width:0%"></span>' +
+                        '<% } else { %>' +
+                            '<a href="#">Ca. Bridge Health Index: <%= cbhi_rating %></a><span class="index california-bridges" style="width:<%= cbhi_rating %>%"></span>' +
+                        '<% } %>' +
+                    '</li>' +
+                    '<li>' +
+                        '<% if (nbi_sufficiency_rating === "0" || nbi_sufficiency_rating === "" || nbi_sufficiency_rating === null) { %>' +
+                            '<a href="javascript:void(0)">FHWA Sufficiency Rating: n/a</a><span class="index national-bridges" style="width:0%"></span>' +
+                        '<% } else { %>' +
+                            '<a href="#">FHWA Sufficiency Rating: <%= nbi_sufficiency_rating %></a><span class="index national-bridges" style="width:<%= nbi_sufficiency_rating %>%"></span>' +
+                        '<% } %>' +
+                    '</li>' +
+                '</ul>' +
+
+                '<p>The <%= facility_carried %> bridge in <%= county %> was built in <%= year_built %>' +
+                '<% if (avg_daily_traffic === "0" || avg_daily_traffic === "" || avg_daily_traffic === null || avg_daily_traffic === "NaN") { %>' +
+                    ' and intersects ' +
+                '<% } else { %>' +
+                    ' and carries an average of <%= avg_daily_traffic %> motorists each day over ' +
+                '<% } %>' +
+                '<%= feature_intersected %>.</p>' +
+
+                '<p>This bridge ' +
+                    '<% if (lanes === "0" || lanes === "" || lanes === null || lanes === "NaN") { %>' +
+                    '<% } else { %>' +
+                        'has <%= lanes %> lanes, ' +
+                    '<% } %>' +
+
+                    '<% if (width === "0.00" || width === "" || width === null || width === "NaN") { %>' +
+                    '<% } else { %>' +
+                        'is <%= width %> feet wide, </li>' +
+                    '<% } %>' +
+
+                    '<% if (length === "0.00" || length === "" || length === null || length === "NaN") { %>' +
+                    '<% } else { %>' +
+                        'is <%= length %> feet in length, </li>' +
+                    '<% } %>' +
+
+                    '<% if (agency === "" || agency === null) { %>' +
+                    '<% } else { %>' +
+                        'and maintained by the <%= agency %>' +
+                    '<% } %>' +
+                '.</p>' +
+
+                '<% if (status === "1") { %>' +
+                    '<span><strong>&#8226; Structurally Deficient</strong></span> ' +
+                '<% } else if (status === "2") { %>' +
+                    '<span><strong>&#8226; Functionally Obsolete</strong></span> ' +
+                '<% } else if (status === "0") { %>' +
+                    '<span><strong>&#8226; Not Deficient</strong></span> ' +
+                '<% } else { %>' +
+                    '<span></span> ' +
+                '<% } %>' +
+
+                '<% if (natl_fracture_critical === "N") { %>' +
+                    '<span></span> ' +
+                '<% } else { %>' +
+                    '<span><strong>&#8226; Fracture Critical</strong></span> ' +
+                '<% } %>', fusionTableObject);
 
             jqueryNoConflict('#content-background').css({'opacity' : '0.7'}).fadeIn('fast');
             jqueryNoConflict('#content-display').html(html).center().fadeIn('slow');
@@ -484,7 +513,6 @@ var MapsLib = {
         else
             return 1;
     }
-
 }
 
 jQuery.fn.center = function () {
@@ -492,4 +520,34 @@ jQuery.fn.center = function () {
 	this.css('top', ( jqueryNoConflict(window).height() - this.height() ) / 4+jqueryNoConflict(window).scrollTop() + 'px');
 	this.css('left', ( jqueryNoConflict(window).width() - this.width() ) / 2+jqueryNoConflict(window).scrollLeft() + 'px');
 	return this;
+}
+
+function roundDecimal(string) {
+    var workingData = parseFloat(string);
+    workingData = workingData.toFixed(2)
+    return workingData;
+}
+
+function glossaryTerms(){
+    var glossaryHtml =
+        '<p style="float: right" id="close"><strong>[X]</strong></p>' +
+        '<h4>Glossary of the Terms</h4>' +
+
+        '<p><strong>Structurally Deficient</strong>: In the federal rating system, a bridge has physical flaws of some kind. These could range from cracked pavement or peeling paint to weaknesses in the bridge\'s key support elements or frequent waterway overflows. The Federal Highway Administration uses a scoring system that takes into account numerous factors and aspects of a bridge\'s condition to determine whether a bridge receives this label.</p>' +
+
+        '<p><strong>Functionally Obsolete</strong>: In the federal rating system, a bridge that isn\'t up to current building standards. That could mean simply that the lanes are too narrow or there is no shoulder on the side of the bridge for stalled cars, or it could mean there are serious structural problems. The Federal Highway Administration uses a scoring system that takes into account numerous factors and aspects of a bridge\'s condition to determine whether a bridge receives this label.</p>' +
+
+        '<p><strong>Fracture Critical</strong>: In the federal rating system, a bridge that doesn\'t have a secondary support system to stop it from collapsing if it is seriously overloaded or experiences a significant accident that impacts a vulnerable section. Last month\'s partial collapse of the Interstate 5 bridge in Washington state and the May 2007 partial collapse of the Interstate 35E bridge in Minnesota were happened on structures deemed Fracture Critical. However, a label of "Fracture Critical" does not necessarily mean it is structurally unsound.</p>' +
+
+        '<p><strong>Sufficiency Rating</strong>: A federal rating system based on a number of factors, not all of them related directly to a bridge\'s structural integrity. On a scale of 0 to 100, a score of 80 or below makes the bridge eligible for repair with federal funds. A score of 50 or below makes the bridge eligible for replacement.</p>' +
+
+        '<p><strong>Bridge Health Index</strong>: A California state rating system that takes into consideration both the condition and the economic value of hundreds of individual elements on a bridge. A newly constructed bridge starts with a perfect score of 100, but the score decreases over time. Caltrans\' own engineers have suggested the agency should aim to keep this score at 80 or above.</p>';
+
+    jqueryNoConflict('#content-background').css({'opacity' : '0.7'}).fadeIn('fast');
+    jqueryNoConflict('#content-display').html(glossaryHtml).center().fadeIn('slow');
+
+    jqueryNoConflict('#close').click(function(){
+        jqueryNoConflict('#content-display').fadeOut('fast');
+        jqueryNoConflict('#content-background').fadeOut('fast');
+    });
 }

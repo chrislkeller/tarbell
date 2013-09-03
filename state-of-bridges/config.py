@@ -13,83 +13,62 @@ GOOGLE_DOC = {
 Set default context. These variables will be globally available to the template.
 """
 DEFAULT_CONTEXT = {
-    '''
-    EXAMPLES
-    'project_name': 'project-inventory',
-    'title': 'News &amp; Data Interactives',
-    'project_category': 'test/keller',
-    'promoted_url': 'http://projects.scpr.org/',
-    'project_description': 'We\'ve collected our interactive maps, databases and charts so you can explore past projects by topic.',
-    'project_keywords': 'KPCC, Southern California Public Radio, Crime & Public Safety, Culture, Economy & Money, Education, Environment & Science, General, Health, Politics, Seasonal, Transportation',
-    'project_kicker': 'News &amp; Data Interactives',
-    'project_headline': 'Explore KPCC\'s databases, maps and more',
-    'project_credits': '<a href="http://www.scpr.org/about/people/staff/kitty-felde">Kitty Felde</a> &amp; <a href="http://www.scpr.org/about/people/staff/chris-keller">Chris Keller</a>',
-    'project_pubdate': 'Updated May 13, 2013',
-    'project_article_text': '<p>Beard hoodie, magna tumblr chillwave. Letterpress thundercats fixie consectetur accusamus cray gastropub bicycle rights. Adipisicing narwhal magna marfa. Fap photo booth cred, excepteur organic terry richardson vegan aesthetic narwhal. Food truck viral sint vinyl cred. Mustache aute consequat salvia, synth etsy irure +1. High life etsy ullamco, officia voluptate nihil brunch cillum nostrud photo booth duis Austin hella banjo.</p>',
-    'project_readmore_link': 'http://www.lapdonline.org/assets/pdf/QDR%203rd%20Qtr.%202012%20FINAL%20MASTER.pdf',
-    'project_data_instructions': '<strong>About This Map: </strong>Information on this map should never be used as a substitute for calling 811 two business days before digging. Southern California Gas Company (SoCalGas) is providing this map as a courtesy and for general information purposes only. It does not represent that the information contained herein is accurate for any particular purpose, and therefore disclaims all warranties, expressed or implied, including the warranty of fitness for a particular purpose. Independent verification from experts should be obtained prior to any specific use. Recipient accepts full responsibility for any consequences associated with use of this information.',
-    'project_embed': 'False',
-    'project_sources': '<a href="http://www.treasurer.ca.gov/">California State Treasurer\'s Office</a>',
-    'project_open_source': 'Built using <a href="https://github.com/newsapps/tarbell-template" target="blank">Tarbell</a> &amp; <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.',
-    'project_analytics': 'False',
-    '''
 
     # project directory
     'project_name': 'state-of-bridges',
 
     # used for page title and open graph descriptions
-    'title': 'A look at the health of California\'s bridges',
+    'title': 'Gauging the health of our Southern California&#39;s bridges',
 
     # static-projects directory that will house the project
-    'project_category': 'maps',
+    'project_category': 'applications',
 
     # used for page sharing links
-    'promoted_url': '',
+    'promoted_url': 'http://projects.scpr.org/static/applications/health-of-our-bridges',
 
     # used for page meta and open graph descriptions
-    'project_description': '',
+    'project_description': 'California has more than 24,000 bridges. Many are classified as "Structurally Deficient", "Functionally Obsolete" or "Fracture Critical". Use the filters below to learn more about bridges in Los Angeles, Orange, Riverside, San Bernardino and Ventura counties that carry the above designations, and see how they compare based on Caltrans and FHWA rating systems.',
 
     # used for page meta keywords
-    'project_keywords': '',
+    'project_keywords': 'Los Angeles, Orange, Riverside, San Bernardino and Ventura, Caltrans, bridges, Structurally Deficient, Functionally Obsolete, Fracture Critical, Southern California, Federal Highway Administration',
 
     # used for page kicker
-    'project_kicker': 'Xxxxxxx',
+    'project_kicker': 'Transportation',
 
     # used for display headline
-    'project_headline': 'Xxxxx xxxxxx xxxxx xxxxx',
+    'project_headline': 'Gauging the health of Southern California\'s bridges',
 
     # takes HTML. Will not render if blank
-    'project_credits': '',
+    'project_credits': '<a href="http://www.scpr.org/about/people/staff/sanden-totten">Sanden Totten</a>, Brian Frank &amp; <a href="http://www.scpr.org/about/people/staff/chris-keller">Chris Keller</a>',
 
     # takes HTML. Will not render if blank
-    'project_pubdate': 'Updated May 13, 2013',
+    'project_pubdate': 'Published June 21, 2013',
 
     # takes HTML. Will not render if blank
-    'project_article_text': '<p>Beard hoodie, magna tumblr chillwave. Letterpress thundercats fixie consectetur accusamus cray gastropub bicycle rights. Adipisicing narwhal magna marfa. Fap photo booth cred, excepteur organic terry richardson vegan aesthetic narwhal. Food truck viral sint vinyl cred. Mustache aute consequat salvia, synth etsy irure +1. High life etsy ullamco, officia voluptate nihil brunch cillum nostrud photo booth duis Austin hella banjo.</p>',
+    'project_article_text': '<p>California has more than 24,000 bridges. Many are classified as <a title="Click for Glossary of the Terms" href="javascript:void(0)" onclick="glossaryTerms();">"Structurally Deficient"</a>, <a title="Click for Glossary of the Terms" href="javascript:void(0)" onclick="glossaryTerms();">"Functionally Obsolete"</a> or <a title="Click for Glossary of the Terms" href="javascript:void(0)" onclick="glossaryTerms();">"Fracture Critical"</a>. These ominous-sounding terms are part of the <a href="http://www.fhwa.dot.gov/bridge/nbis.cfm" target="_blank">Federal Highway Administration\'s National Bridge Inspection Standards</a> and help to make up a bridge\'s <a title="Click for Glossary of the Terms" href="javascript:void(0)" onclick="glossaryTerms();">Sufficiency Rating</a>. California Department of Transportation officials say these classifications don\'t accurately reflect the overall health of a bridge; to get a more accurate reading of a bridge\'s health, <a href="http://onlinepubs.trb.org/onlinepubs/trnews/trnews215full.pdf" target="_blank">Caltrans</a> developed the <a title="Click for Glossary of the Terms" href="javascript:void(0)" onclick="glossaryTerms();">Bridge Health Index</a>. Use the filters below to learn more about bridges in Los Angeles, Orange, Riverside, San Bernardino and Ventura counties that carry the above designations and see how they compare based on Caltrans and FHWA rating systems.</p>',
 
     'project_image_url': '',
 
     # hyperlink to the CMS story. Will not render if blank
-    'project_readmore_link': '',
+    'project_readmore_link': 'http://www.scpr.org/news/2013/06/21/37842/how-safe-are-california-s-bridges/',
 
     # takes HTML. Will not render if blank
-    'project_data_instructions': '<strong>About This Map: </strong>Beard hoodie, magna tumblr chillwave. Letterpress thundercats fixie consectetur accusamus cray gastropub bicycle rights. Adipisicing narwhal magna marfa. Fap photo booth cred, excepteur organic terry richardson vegan aesthetic narwhal. Food truck viral sint vinyl cred. Mustache aute consequat salvia, synth etsy irure +1. High life etsy ullamco, officia voluptate nihil brunch cillum nostrud photo booth duis Austin hella banjo.',
+    'project_data_instructions': '<strong>About the Data and Map: </strong>This map shows the more than 4,000 bridges in Los Angeles, Orange, Riverside, San Bernardino and Ventura counties that are owned and maintained by local agencies -- including cities and counties -- that have been rated by both the <a href="http://www.dot.ca.gov/hq/LocalPrograms/hbrr99/hbrr99a.htm">California Department of Transportation\'s Local Highway Bridge Program</a> and the <a href="http://www.fhwa.dot.gov/bridge/nbi.cfm">FHWA\'s National Bridge Inventory</a> as of May 2013. The location of bridges is based on Caltrans data and is approximate. To determine FHWA status of a particular bridge we used a structure identification number to find the same bridge in Caltrans data. Data showing state-owned bridges in Southern California could not immediately be provided, but will be added when available.',
 
     # set to True to enable
-    'project_embed': '',
+    'project_embed': 'False',
 
     # HTML anchor tag(s) to the data source of the story. Will not render if blank
-    'project_sources': '',
+    'project_sources': '<a href="http://www.dot.ca.gov/hq/LocalPrograms/hbrr99/hbrr99a.htm">California Department of Transportation\'s Local Highway Bridge Program</a>, <a href="http://www.fhwa.dot.gov/bridge/nbi.cfm">FHWA\'s National Bridge Inventory</a> &amp; <a href="http://www.ire.org/">Investigative Reporters and Editors</a>.',
 
     # HTML anchor tag(s) to the tools used to build the project. Will not render if blank
-    'project_open_source': 'Built using <a href="https://github.com/newsapps/tarbell-template" target="blank">Tarbell</a> &amp; <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.',
+    'project_open_source': 'Built using <a href="http://www.google.com/drive/apps.html#fusiontables">Fusion Tables</a>, <a href="http://derekeder.com">Derek Eder\'s</a> <a href="http://derekeder.com/searchable_map_template/">Searchable Map Template</a>, <a href="https://github.com/newsapps/tarbell-template" target="blank">Tarbell</a> &amp; <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.',
 
     # set to True to enable
-    'project_analytics': '',
+    'project_analytics': 'True',
 
     # set to True to enable
-    'project_comments': '',
-
+    'project_comments': 'True',
 }
 
 """
