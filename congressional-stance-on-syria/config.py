@@ -42,7 +42,7 @@ DEFAULT_CONTEXT = {
     'project_credits': 'Nuran Alteir, Monica Luhar, <a href="http://www.scpr.org/about/people/staff/kitty-felde">Kitty Felde</a>, <a href="http://www.scpr.org/about/people/staff/brian-frank">Brian Frank</a> &amp; <a href="http://www.scpr.org/about/people/staff/chris-keller">Chris Keller</a>',
 
     # takes HTML. Will not render if blank
-    'project_pubdate': 'Updated Sept. 3, 2013',
+    'project_pubdate': 'Updated Sept. 5, 2013',
 
     # takes HTML. Will not render if blank
     'project_article_text': 'Congress is out of session until September 9th, but that hasn\'t stopped lawmakers - including many Californians - from weighing in on whether the U.S. should get involved militarily in Syria following allegations of a chemical weapons attack against civilians. Congresswoman Barbara Lee of Oakland and 12 other California Democratic colleagues were among those who signed a letter to President Obama, saying they join "the unequivocal condemnation" over reports the Syrian government used chemical weapons. But before the use of military force, the Democrats want a debate on the facts and the alternatives. Below are public statements from the California delegation on where they stand on Syria.',
