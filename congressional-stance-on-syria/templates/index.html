@@ -70,27 +70,45 @@
                     <div id="{{ row.first_name }}_{{ row.last_name }}" class="row-fluid" style="padding: 25px 0 15px 0;">
 
                         <!-- begin span -->
-                        <!--
                         <div class="span2">
                             <dl>
                                 <dd>
-                                    {% if row.vote_promise == 'likely_yes'%}
+                                    {% if row.vote_promise == 'likely_yes' %}
                                         <div class="{{ row.vote_promise }}">&#10004;</div>
-                                        <div class="vote-indicator"><p><strong>{{ row.vote_promise|replace("_", " ")|title }}</strong></p></div>
-                                    {% elif row.vote_promise == 'likely_no'%}
+                                        <div class="vote-indicator">
+                                            <p><strong>{{ row.vote_promise|replace("_", " ")|title }}</strong></p>
+                                            {% if row.promise_date %}
+                                                <p class="data-instructions">As of {{ row.promise_date }}</p>
+                                            {% endif %}
+                                        </div>
+                                    {% elif row.vote_promise == 'likely_no' %}
                                         <div class="{{ row.vote_promise }}">X</div>
-                                        <div class="vote-indicator"><p><strong>{{ row.vote_promise|replace("_", " ")|title }}</strong></p></div>
-                                    {% elif row.vote_promise == 'undecided'%}
-                                        <div class="{{ row.vote_promise }}">&#8212;</div>
-                                        <div class="vote-indicator"><p><strong>{{ row.vote_promise|replace("_", " ")|title }}</strong></p></div>
+                                        <div class="vote-indicator">
+                                            <p><strong>{{ row.vote_promise|replace("_", " ")|title }}</strong></p>
+                                            {% if row.promise_date %}
+                                                <p class="data-instructions">As of {{ row.promise_date }}</p>
+                                            {% endif %}
+                                        </div>
+                                    {% elif row.vote_promise == 'undecided' %}
+                                        <div class="{{ row.vote_promise }}">?</div>
+                                        <div class="vote-indicator">
+                                            <p><strong>{{ row.vote_promise|replace("_", " ")|title }}</strong></p>
+                                            {% if row.promise_date %}
+                                                <p class="data-instructions">As of {{ row.promise_date }}</p>
+                                            {% endif %}
+                                        </div>
                                     {% else %}
-                                        <div></div>
-                                        <div</div>
+                                        <div class="awaiting_response">&#8212;</div>
+                                        <div class="vote-indicator">
+                                            <p><strong>Awaiting Response</strong></p>
+                                            {% if row.promise_date %}
+                                                <p class="data-instructions">As of {{ row.promise_date }}</p>
+                                            {% endif %}
+                                        </div>
                                     {% endif %}
                                 </dd>
                             </dl>
                         </div>
-                        -->
                         <!-- end span -->
 
                         <!-- begin span -->
@@ -107,22 +125,20 @@
                         <!-- end span -->
 
                         <!-- begin span -->
-                        <div class="span10">
+                        <div class="span8">
                             <dl>
                                 <dd>
-                                    <div class="span5">
+                                    <div class="span8">
                                         <h4>{{ row.position }} {{ row.first_name }} {{ row.last_name }} ({{ row.party }}-{{ row.district }})</h4>
-                                    </div>
-                                    <div class="span5">
                                         {% if row.district_id %}
-                                        <h4>Congressional District: {{ row.district_id }}</h4>
+                                            <h5>Congressional District: {{ row.district_id }}</h5>
                                         {% endif %}
                                     </div>
                                 </dd>
                                 <dd>
-                                    <div class="span10">
+                                    <div class="span8">
                                         {% if row.view_on_syria %}
-                                            <p><strong>View on Syria</strong>: {{ row.view_on_syria }}</p>
+                                            <p><strong>Quote</strong>: {{ row.view_on_syria }}</p>
                                         {% else %}
                                             <p></p>
                                         {% endif %}

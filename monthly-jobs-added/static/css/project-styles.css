@@ -1,12 +1,27 @@
 /* Styles for monthly-jobs-added */
-#data-chart {width: 100%; height: 10500px; margin: 0 auto 0 auto;}
-#data-table {width: 100%; height: auto; overflow-y: hidden; overflow-x: auto; margin: 0 auto 0 auto;}
-#data-table th a {color: #ffffff;}
-
-/*.table {font-size: 10px;}*/
-
-.chartMouseOver {text-decoration: underline;}
 #content-article {width: 100%; height: auto; margin: 0 auto 5px auto;}
+
+#chart_container {width: 100%; margin: 25px 0 0 0;}
+
+#chart {width: 100%; margin: 15px 0 0 0;}
+
+#slider {width: 100%; margin: 25px 0 0 0;}
+
+#y_axis {position: absolute; top: 0; bottom: 0; width: 40px; margin-top: 50px;}
+
+.rickshaw_graph .detail .x_label {display: none;}
+.rickshaw_graph .detail .item {line-height: 1.4; padding: 0.5em;}
+.detail_swatch {float: right; display: inline-block; width: 10px; height: 10px; margin: 0 4px 0 0;}
+.rickshaw_graph .detail .date {color: #a0a0a0;}
+
+
+
+.rickshaw_annotation_timeline {width: 100%; height: 15px; border-top: 20px solid #e0e0e0; margin: 15px 0 0 0; position: relative;}
+.rickshaw_annotation_timeline .annotation {position: absolute; height: 15px; width: 15px; margin-left: -1px; top: -18px; border-radius: 5px; background-color: rgba(0,0,0,.50);}
+
+
+
+
 
 /* Landscape phones and down */
 @media (max-width: 485px) {
@@ -27,50 +42,4 @@
 /* Large desktop */
 @media (min-width: 1200px) {
 
-}
-
-
-/**
- * CSS bar graph with Positive and Negative values
- */
-.graph {
-	width: 100px;
-	border: 1px solid #aeaeae;
-	background-color: #eaeaea;
-}
-/* Start of "Micro clearfix" */
-
-        .cf { zoom: 1; }
-        .cf:before,
-        .cf:after { content: ""; display: table; }
-        .cf:after { clear: both; }
-
-        /* End of "Micro clearfix" */
-
-
-.ext {
-	width: 50px;
-padding: 2px 0;
-}
-.ext.neg {
-border-right: 1px solid black;
-}
-.ext.pos {
-margin-left: 50px;
-border-left: 1px solid black;
-}
-
-.ext.neg .bar {
-  float: right;
-  margin-bottom: 5px;
-  background-color: red;
-}
-
-.ext.pos .bar {
-
-  background-color: green;
-}
-
-.bar {
-    height: 5px;
 }

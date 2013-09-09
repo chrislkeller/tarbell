@@ -52,7 +52,7 @@ DEFAULT_CONTEXT = {
     'project_readmore_link': '',
 
     # takes HTML. Will not render if blank
-    'project_data_instructions': 'Using the interactive:</strong> Use the legend to filter through the different data points in the chart and table. You can also click-and-drag on a section of the chart to zoom in on a specific section.</span>',
+    'project_data_instructions': '<strong>Using the interactive:</strong> Hover over any part of the chart to see the number of jobs added for that month. Click on the points above the chart for information about contextual moments. Use the slider below the chart to zoom in on a specific section.</span>',
 
     # set to True to enable
     'project_embed': '',

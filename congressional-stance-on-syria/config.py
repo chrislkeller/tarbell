@@ -39,13 +39,13 @@ DEFAULT_CONTEXT = {
     'project_headline': 'Syria: Where do your members of Congress stand?',
 
     # takes HTML. Will not render if blank
-    'project_credits': 'Nuran Alteir, Monica Luhar, <a href="http://www.scpr.org/about/people/staff/kitty-felde">Kitty Felde</a>, <a href="http://www.scpr.org/about/people/staff/brian-frank">Brian Frank</a> &amp; <a href="http://www.scpr.org/about/people/staff/chris-keller">Chris Keller</a>',
+    'project_credits': '<a href="http://www.scpr.org/about/people/staff/kitty-felde">Kitty Felde</a>, Nuran Alteir, Monica Luhar, <a href="http://www.scpr.org/about/people/staff/brian-frank">Brian Frank</a> &amp; <a href="http://www.scpr.org/about/people/staff/chris-keller">Chris Keller</a>',
 
     # takes HTML. Will not render if blank
-    'project_pubdate': 'Updated Sept. 5, 2013',
+    'project_pubdate': 'Updated Sept. 9, 2013',
 
     # takes HTML. Will not render if blank
-    'project_article_text': 'Congress is out of session until September 9th, but that hasn\'t stopped lawmakers - including many Californians - from weighing in on whether the U.S. should get involved militarily in Syria following allegations of a chemical weapons attack against civilians. Congresswoman Barbara Lee of Oakland and 12 other California Democratic colleagues were among those who signed a letter to President Obama, saying they join "the unequivocal condemnation" over reports the Syrian government used chemical weapons. But before the use of military force, the Democrats want a debate on the facts and the alternatives. Below are public statements from the California delegation on where they stand on Syria.',
+    'project_article_text': 'Members of Congress return Sept. 9 for closed door security briefings on Syria. Many lawmakers - including several members of the California delegation - have weighed in on whether the U.S. should take military action against Syria following allegations of a chemical weapons attack by the Assad regime against civilians. The debate has been anything but partisan. Democrats and Republicans are equally divided over how the U.S. should respond. Their stances have also become more nuanced, with legislators divided over multiple options: stay out of Syria\'s business, increase diplomatic pressure, or carry out a limited strike. We reached out to the California delegation on Capitol Hill to find out how they\'re leaning on the question that lies at the heart of this debate: <strong>Are you for or against some form of military action in Syria?</strong>',
 
     'project_image_url': '',
 
@@ -65,10 +65,10 @@ DEFAULT_CONTEXT = {
     'project_open_source': 'Built using <a href="https://github.com/newsapps/tarbell-template" target="blank">Tarbell</a> &amp; <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.',
 
     # set to True to enable
-    'project_analytics': 'False',
+    'project_analytics': 'True',
 
     # set to True to enable
-    'project_comments': '',
+    'project_comments': 'True',
 
 }
 

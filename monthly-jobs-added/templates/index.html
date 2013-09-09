@@ -8,6 +8,8 @@
 {% block css %}
 {{ super() }}
     <!-- additional css files for projects -->
+    <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.3.0/rickshaw.min.css">
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
     <link href="{{ static_url('monthly-jobs-added', '/css/project-styles.css') }}" rel="stylesheet" type="text/css" media="all" />
 {% endblock %}
 
@@ -50,81 +52,16 @@
 {% endblock %}
 
 {% block data_visuals_content %}
+    <div id="chart_container">
 
-
-
-<!-- content to be placed inside <body>…</body> -->
-<div id="data-graph" class="graph cf"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div id="data-chart"></div>
-
-
-
-<!--
-    <div id="data-table">
-        <table class="table table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th>&nbsp;</th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_02032012.htm" target="_blank">Ja 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_03092012.htm" target="_blank">Fe 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_04062012.htm" target="_blank">Ma 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_05042012.htm" target="_blank">Ap 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_06012012.htm" target="_blank">My 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_07062012.htm" target="_blank">Ju 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_08032012.htm" target="_blank">Ju 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_09072012.htm" target="_blank">Au 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_10052012.htm" target="_blank">Se 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_11022012.htm" target="_blank">Oc 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_12072012.htm" target="_blank">No 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_01042013.htm" target="_blank">De 12</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_02012013.htm" tagrte="_blank">Ja 13</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_03082013.htm" tagrte="_blank">Fe 13</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_04052013.htm" tagrte="_blank">Ma 13</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_05032013.htm" tagrte="_blank">Ap 13</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_06072013.htm" tagrte="_blank">My 13</a></th>
-                    <th><a href="http://www.bls.gov/news.release/archives/empsit_07052013.htm" tagrte="_blank">Ju 13</a></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <p class="right"><span class="data-instructions"><strong>n/a</strong>: final figures not yet available from the U.S. Bureau of Labor Statistics.</span></p>
+        <!--
+    	<div id="y_axis"></div>
+        -->
+    	<div id="timeline"></div>
+    	<div id="chart"></div>
     </div>
 
-{% for item in revised_items %}
-    {{ item.year }}
-{% endfor %}
-
-
--->
-
-
-
-
-
-
-
-
-
-
-
-
+    <div id="slider"></div>
 {% endblock %}
 
 {% block data_footer_content %}
@@ -174,77 +111,14 @@
 
 {% block kpcc_scripts %}
 {{ super() }}
-    <script src="http://projects.scpr.org/static/static-files/scripts/tabletop.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.2/highcharts.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/2.7.4/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/2.7.4/d3.layout.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.3.0/rickshaw.min.js"></script>
+    <script src="{{ static_url('monthly-jobs-added', '/js/Rickshaw.Graph.Annotate.js') }}"></script>
     <script src="{{ static_url('monthly-jobs-added', '/js/data-script.js') }}"></script>
-
-
-
-    <script type='text/javascript'>
-
-
-        {% for item in revised_items %}
-
-            var graphData = parseFloat({{ item.width }});
-
-            if (graphData>0){
-                jqueryNoConflict('#data-graph').append("<div class='ext pos'><div style='width: " + graphData + "%;' class='bar'></div></div>");
-            } else {
-                graphData = graphData * -1
-                jqueryNoConflict('#data-graph').append("<div class='ext neg'><div style='width: " + graphData + "%;' class='bar'></div></div>");
-            }
-        {% endfor %}
-
-
-
-
-
-
-
-
-
-
-        var dataContainer = [];
-        var categoriesContainer = [];
-
-        {% for item in revised_items %}
-            var data = {{ item.final }}
-            dataContainer.push(data);
-
-            var categories = "{{ item.display_name }}";
-            categoriesContainer.push(categories);
-
-        {% endfor %}
-
-
-
-
-        // begin data configuration object
-        var optionsConfig = {
-
-            renderToContainer: 'data-chart',
-
-            title: 'Xxxxx xxxxx xxxxxx',
-
-            subtitle: 'Xxxxx xxxxx xxxxxx',
-
-            credits: 'Source: Xxxxx xxxxx xxxxxx',
-
-            categories: categoriesContainer,
-
-            dataSeries: [{
-                //name: 'Jobs Added',
-                data: dataContainer
-            }]
-        };
-        // end data configuration object
-
-    </script>
-
-
-
-
-
 {% endblock %}
 
 {% block kpcc_analytics %}
