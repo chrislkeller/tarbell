@@ -1,0 +1,119 @@
+{# The default project templates assumes a _base.html template to be extended. #}
+{% extends '_base.html' %}
+
+{% block meta %}
+{{ super() }}
+{% endblock %}
+
+{% block css %}
+{{ super() }}
+    <link href="{{ static_url('mayoral-voting-turnout', '/css/project-styles.css') }}" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block data_details_content %}
+    <div id="content-article">
+        <h4 class="kicker">{{ project_kicker|safe }}</h4>
+        <h1>{{ project_headline }}</h1>
+
+        <div id="content-article-metadata">
+            <p>
+            {% if project_credits %}
+                <span class="credits">{{ project_credits|safe }}</span> |
+            {% else %}
+            {% endif %}
+            <span class="pubdate">{{ project_pubdate }}</span>
+            </p>
+        </div>
+
+        {% if project_article_text %}
+            <div id="content-article-text"></div>
+        {% else %}
+        {% endif %}
+
+        {% if project_readmore_link %}
+            <div id="content-article-buttons">
+                <a class="btn btn-info" href="{{ project_readmore_link }}">Read More</a>
+            </div>
+        {% else %}
+        {% endif %}
+
+        {% if project_data_instructions %}
+            <div id="content-explainer">
+                <p><span class="data-instructions">{{ project_data_instructions|safe }}</span></p>
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block data_visuals_content %}
+    <div id="data-chart"></div>
+{% endblock %}
+
+{% block data_footer_content %}
+    {% if project_embed == 'True' %}
+        <div id="embed-this">
+            <p class="hidden-tablet hidden-phone"><span class="btn btn-warning" style="cursor:pointer;" onclick="embedBox()">Embed this map</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_sources %}
+        <div id="sources">
+            <p class="normal-display"><strong>Source(s): </strong>{{ project_sources|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_open_source %}
+        <div id="open-source">
+            <p class="small-display">{{ project_open_source|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+{% endblock %}
+
+{% block kpcc_scripts %}
+{{ super() }}
+    <script>
+        var dataSource = "{{ static_url('mayoral-voting-turnout', '/data/turnout-data.json') }}";
+    </script>
+    <script src="http://projects.scpr.org/static/static-files/scripts/highcharts.js"></script>
+    <script src="{{ static_url('mayoral-voting-turnout', '/js/data-script.js') }}"></script>
+{% endblock %}
+
+{% block kpcc_analytics %}
+    {% if project_analytics == 'True' %}
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-624724-5']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+        <script type="text/javascript">
+            var _sf_async_config={uid:2825,domain:"projects.scpr.org"};
+            (function(){
+                function loadChartbeat() {
+                    window._sf_endpt=(new Date()).getTime();
+                    var e = document.createElement('script');
+                    e.setAttribute('language', 'javascript');
+                    e.setAttribute('type', 'text/javascript');
+                    e.setAttribute('src',
+                        (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") + "js/chartbeat.js");
+                    document.body.appendChild(e);
+                };
+                var oldonload = window.onload;
+                window.onload = (typeof window.onload != 'function') ? loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        </script>
+    {% else %}
+
+    {% endif %}
+{% endblock %}

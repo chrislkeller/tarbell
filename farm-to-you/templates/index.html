@@ -1,0 +1,196 @@
+{# The default project templates assumes a _base.html template to be extended. #}
+{% extends '_base.html' %}
+
+{% block meta %}
+{{ super() }}
+{% endblock %}
+
+{% block css %}
+{{ super() }}
+    <link href="{{ static_url('farm-to-you', '/css/project-styles.css') }}" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block data_details_content %}
+    <div id="content-article">
+        <h4 class="kicker">{{ project_kicker|safe }}</h4>
+        <h1>{{ project_headline }}</h1>
+
+        <div id="content-article-metadata">
+            <p>
+            {% if project_credits %}
+                <span class="credits">{{ project_credits|safe }}</span> |
+            {% else %}
+            {% endif %}
+            <span class="pubdate">{{ project_pubdate }}</span>
+            </p>
+        </div>
+
+        {% if project_article_text %}
+            <div id="content-article-text">
+                {{ project_article_text|safe }}
+            </div>
+        {% else %}
+        {% endif %}
+
+        {% if project_readmore_link %}
+            <div id="content-article-buttons">
+                <a class="btn btn-info" href="{{ project_readmore_link }}">Read More</a>
+            </div>
+        {% else %}
+        {% endif %}
+
+        {% if project_data_instructions %}
+            <div id="content-explainer">
+                <p><span class="data-instructions">{{ project_data_instructions|safe }}</span></p>
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block data_visuals_content %}
+    <div id="farm-to-walmart" class="element active">
+        <div class="row-fluid data-display">
+            <div class="span5 offset1">
+                <h4>One strawberry's path: From planting...</h4>
+                <p>Wal-Mart Stores Inc. purchases strawberries directly from about two dozen suppliers in California, including the Santa Maria-based <a href="http://better-produce.com/" target="blank">Better Produce</a>. Better Produce farms has about 600 acres worth of strawberries in Nipomo and Santa Maria, half of which raises strawberries for Wal-Mart. The farm employs more than 300 people, CEO Juan Cisneros said. In addition to strawberries, the farm also grows chili peppers, squash, beans, snow peas and broccoli.</p>
+                <p>On average, strawberry growers in California invest between $20,000 and $25,000 in crop preparation, according to the <a href="http://www.calstrawberry.com/" target="blank">California Strawberry Commission</a>. For every dollar spent on the crop, the grower generally earns back 3 cents when the strawberries are sold, the commission said.</p>
+            </div>
+            <div class="span5">
+                <img src="{{ static_url('farm-to-you', '/images/strawberries_package.jpg') }}" alt="Strawberry Farm" />
+            </div>
+        </div>
+        <div class="row-fluid data-display">
+            <div class="span6 offset3">
+                <h4>... to harvest ... </h4>
+                <img src="{{ static_url('farm-to-you', '/images/strawberries_field.jpg') }}" alt="Strawberry Farm" />
+                <div class="row-fluid data-display">
+                    <div class="span6">
+                        <p>Better Produce begins planting strawberries in October, and begin to work the fields in February, Cisneros said. Strawberry picking begins as early as 6 a.m., and one employee can gather between 70 and 150 trays of strawberries a day. Once gathered and inspected, the strawberries are loaded onto a truck to Better Produce's cooling facility in Santa Maria, Cisneros said.</p>
+                    </div>
+                    <div class="span6">
+                        <img src="{{ static_url('farm-to-you', '/images/strawberries_gathering.jpg') }}" alt="Strawberry Farm" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid data-display">
+            <div class="span10 offset1">
+                <h4>... to distribution ...</h4>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <p>Once at the cooling facility, the strawberries are cooled to 33 degrees Fahrenheit for between 30 to 45 minutes to remove the warm air. They are then placed in storage and later Better Produce delivers the strawberries by semi-truck to Wal-Mart Stores Inc.'s distribution center in Riverside.</p>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span8">
+                        <img src="{{ static_url('farm-to-you', '/images/strawberries_loading.jpg') }}" alt="Strawberry Farm" />
+                    </div>
+                    <div class="span4">
+                        <img src="http://maps.googleapis.com/maps/api/staticmap?center=34.013396,-117.381109&zoom=12&size=300x300&maptype=roadmap%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20&markers=color:red%7C34.013396,-117.381109&sensor=false" alt="Location of Wal-Mart Stores distribution center in Riverside" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <p>Wal-Mart receives three to five truckloads a day from Better Produce, which translates to between 1.5 million to 2.7 million strawberries each day during peak season--April and May, Cisneros said. Wal-Mart senior sourcing manager Yolanda Ramirez declined to say how much it pays for each 8-pound box. The next day, Walmart’s distribution center sends the strawberries to <a href="http://projects.flowingdata.com/walmart/" target="_blank">200 stores in California and Nevada</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid data-display">
+            <div class="span5 offset1">
+                <img src="{{ static_url('farm-to-you', '/images/strawberries_case.jpg') }}" alt="Strawberry Farm" />
+            </div>
+            <div class="span5">
+                <h4>... to consumer</h4>
+                <p>The strawberries arrive at Walmart retail stores where they are added to the display cooler at 28 degrees Fahrenheit or on display shelving and sold.
+                <p>A box of strawberries was being sold at the Santa Maria Walmart Neighborhood Market for $1.48 last month.</p>
+                <p>If the strawberries placed onto the display shelf they are switched out every three to four hours and replaced with strawberries from the display cooler. Strawberries housed in the display cooler typically last for five to seven days.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block data_footer_content %}
+    {% if project_embed == 'True' %}
+        <div id="embed-this">
+            <p class="hidden-tablet hidden-phone"><span class="btn btn-warning" style="cursor:pointer;" onclick="embedBox()">Embed this map</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_sources %}
+        <div id="sources">
+            <p class="normal-display"><strong>Source(s): </strong>{{ project_sources|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_open_source %}
+        <div id="open-source">
+            <p class="small-display">{{ project_open_source|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+{% endblock %}
+
+{% block data_comments %}
+    {% if project_comments == 'True' %}
+        <div class="row-fluid">
+            <div class="span12">
+            <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    var disqus_shortname = 'kpcc-projects';
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    {% else %}
+    {% endif %}
+{% endblock %}
+
+{% block kpcc_scripts %}
+{{ super() }}
+{% endblock %}
+
+{% block kpcc_analytics %}
+    {% if project_analytics == 'True' %}
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-624724-5']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+        <script type="text/javascript">
+            var _sf_async_config={uid:2825,domain:"projects.scpr.org"};
+            (function(){
+                function loadChartbeat() {
+                    window._sf_endpt=(new Date()).getTime();
+                    var e = document.createElement('script');
+                    e.setAttribute('language', 'javascript');
+                    e.setAttribute('type', 'text/javascript');
+                    e.setAttribute('src',
+                        (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") + "js/chartbeat.js");
+                    document.body.appendChild(e);
+                };
+                var oldonload = window.onload;
+                window.onload = (typeof window.onload != 'function') ? loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        </script>
+    {% else %}
+
+    {% endif %}
+{% endblock %}

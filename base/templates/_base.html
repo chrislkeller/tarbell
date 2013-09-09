@@ -1,102 +1,164 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>{% block title %}{{ title|striptags }}{% endblock title %}</title>
-    <link rel="shortcut icon" href="/favicon{% if preview_mode %}-preview{% endif %}.ico" />
 
-    {% block css %}
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{ static_url('base', '/css/style.css') }}" />
-    {% endblock css %}
+<!-- begin doc -->
+<html lang="en">
 
-    {% block opengraph %} 
-    <meta property="og:url" content="{{ page_url("%s/%s.html" % (project, pagename)) }}" />
-    <meta property="og:title" content="{{ title }}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="{{ opengraph_image }}" />
-    <meta property="og:description" content="{{ opengraph_description }}" />
-    {% endblock opengraph %}
+    <!-- begin header -->
+    <head>
 
-    {% block shim %}
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    {% endblock %}
+        <title>{% block title %}{{ title|striptags }}{% endblock title %} | scpr.org</title>
+        <link rel="shortcut icon" href="http://media.scpr.org/favicon.ico">
+        <meta name="viewport" id="meta-viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="apple-touch-icon" href="http://media.scpr.org/assets/images/icon.png">
+        <meta name="format-detection" content="telephone=no"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="robots" content="" />
 
-    {% block meta %}
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% endblock meta %}
-</head>
-<body{% block bodyattrs %} class="has-nav {{ pagename }}"{% endblock bodyattrs %}>
+        {% block meta %}
+        <meta name="description" content="{{ project_description }}" />
+        <meta name="keywords" content="{{ project_keywords }}" />
+        {% endblock meta %}
 
-{# Override the `container` block to disable default layout. #}
-{% block container %}
-    <div id="header">
-        {% block header %}{% endblock header %}
-    </div>
-    <div id="content">
-        {% block content %}{% endblock content %}
-    </div>
-    <div id="footer">
-        {% block footer %}{% endblock footer %}
-    </div>
-{% endblock container %}
+        {% block opengraph %}
+        <meta property="og:title" content="{{ title|striptags }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="http://www.scpr.org/assets/kpcc-twitter-logo-f43790c570b1b6c6890ce868e0c654b8.png" />
+        <meta property="og:image:width" content="500" />
+        <meta property="og:image:height" content="500" />
+        <meta property="og:url" content="{{ promoted_url }}" />
+        <meta property="og:description" content="{{ project_description }}" />
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:url" content="{{ promoted_url }}">
+        <meta name="twitter:domain" content="http://projects.scpr.org/">
+        <meta name="twitter:site" content="KPCC">
+        <meta name="twitter:title" content="{{ title|striptags }}">
+        <meta name="twitter:description" content="{{ project_description }}">
+        <meta name="twitter:image:src" content="http://www.scpr.org/assets/kpcc-twitter-logo-f43790c570b1b6c6890ce868e0c654b8.png">
+        {% endblock opengraph %}
 
-{% block scripts %}
-{#
-    Scripts are the most complex section of the template. The default configuration
-    uses RequireJS to initialize the app's default Backbone app. To dispense with
-    this madness, simply override the block.
+        <!-- begin css -->
+        <link href="http://projects.scpr.org/static/static-files/css/reset/reset-styles.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="http://projects.scpr.org/static/static-files/bootstrap-v222/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="http://projects.scpr.org/static/static-files/css/interactive-project-shell/foundation-styles-v2.css" rel="stylesheet" type="text/css" media="all" />
 
-    If you like this frontend app structure, you can add a RequireJS configuration 
-    to your project adding a `requirejs` worksheet to your spreadsheet or setting
-    the `requirejs` key in config.py. Each row needs a `name` and `url` and optionally
-    supports `exports` and `deps` shim configuration variables.
-#}
-<script type="text/javascript">
-var require = {
-    baseUrl: '/',
-    paths: {
-        {# Handy base libraries #}
-        backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone',
-        bootstrap: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min',
-        jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery',
-        text: '//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.5/text',
-        underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore',
+        {% block css %}
+        {% endblock css %}
 
-        {# Construct aliases to each project's JS directory #}
-        {% for project_name in TARBELL_PROJECTS %}
-            {% if project_name == '' %}
-                {% set project = 'base' %}
-            {% else %}
-                {% set project = project_name %}
-                {% set project_name = '/' + project_name %}
-            {% endif %}
-            '{{ project }}': '{{ project_name }}/js',
-        {% endfor %}
-    },
-    shim: {
-        backbone: {
-            deps: ["underscore", "jquery"],
-            exports: "Backbone"
-        },
-        bootstrap: {
-            deps: ["jquery"]
-        },
-        highlight: {
-            exports: 'hljs'
-        },
-        underscore: {
-            exports: '_'
-        },
-    }
-};
-</script>
+        <link href="http://projects.scpr.org/static/static-files/bootstrap-v222/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" media="all" />
+        <!-- end css -->
 
-<script type="text/javascript" data-main="{{ project }}/js/app" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.js"></script>
-{% endblock scripts %}
+        {% block shim %}
+            <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+        {% endblock %}
 
-</body>
+        <!-- begin base scripts -->
+        <script src="http://use.typekit.com/mhc7oxs.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script async="" src="http://www.google-analytics.com/ga.js"></script>
+        <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://projects.scpr.org/static/static-files/scripts/modernizr-2.5.3.min.js"></script>
+        <!-- end base scripts -->
+
+    </head>
+    <!-- end header -->
+
+    <!-- begin body -->
+    <body class="minimal">
+        <div id="kpcc-header">
+            <header>
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span8">
+                            <h3 id="site-title" ><a href="http://www.scpr.org/">KPCC 89.3</a></h3>
+                        </div>
+                        <div class="span4">
+                            <ul class="header-links clearfix pull-right">
+                                <li>
+                                    <a href="https://scprcontribute.publicradio.org/" class="pledge-now icon">Contribute to KPCC</a>
+                                    <a href="https://scprcontribute.publicradio.org/" target="_blank"><b>Pledge now</b></a>
+                                </li>
+                                <li>
+                                    <div class="share-links clearfix">
+                                        <script>function fbs_click() {u=location.href;t=document.title;window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}</script>
+                                        <a class="facebook icon" href="{{ promoted_url }}" onClick="return fbs_click()" target="_blank" title="Share This on Facebook"></a>
+                                        <a class="twitter icon" href="http://twitter.com/share?text={{ project_description }}&url={{ promoted_url }}"></a>
+                                    </div>
+                                    <b>Share this page</b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div id="data-container" class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="data-details">
+                        {% block data_details_content %}
+                        {% endblock data_details_content %}
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="data-visuals">
+                        {% block data_visuals_content %}
+                        {% endblock data_visuals_content %}
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="data-footer">
+                        {% block data_footer_content %}
+                        {% endblock data_footer_content %}
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="data-comments">
+                        {% block data_comments %}
+                        {% endblock data_comments %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="kpcc-footer">
+            <footer>
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <ul>
+                                <li><a href="http://scpr.org/terms/">Terms &amp; Conditions</a></li>
+                                <li><a href="http://scpr.org/privacy/">Privacy</a></li>
+                                <li><a href="http://scpr.org/web_site_feedback">Website Feedback</a></li>
+                                <li>Copyright 2013 &copy; Southern California Public Radio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- begin scripts -->
+            {% block kpcc_scripts %}
+            {% endblock kpcc_scripts %}
+        <!-- end scripts -->
+
+        <!-- begin analytics -->
+            {% block kpcc_analytics %}
+            {% endblock kpcc_analytics %}
+        <!-- end analytics -->
+
+    </body>
+    <!-- end body -->
+
 </html>
+<!-- end document -->
