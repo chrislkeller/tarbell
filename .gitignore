@@ -4,3 +4,5 @@ _out
 client_secrets.json
 secrets.py
 s3config.py
+_bak_templates_projects
+scratchpad.md
