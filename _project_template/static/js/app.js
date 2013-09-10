@@ -1,14 +1,21 @@
+// Example project application. If this file is a little complicated, it's because
+// we're trying to demonstrate a basic app pattern using RequireJS.
+
+// Further configure RequireJS
 require.config( {
+    // Library paths
     paths: {
         moment: '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min',
-        highlight: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min',
+        spin: '//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min',
     },
+    // Shim for non-AMD compatible Javascript libraries
+    shim: {
+        spin: {
+            exports: 'Spinner'
+        },
+    }
 } );
 
-<<<<<<< HEAD
-require([ 'jquery', 'base/views/NavigationView', 'highlight' ],
-function($, NavigationView, hljs) {
-=======
 // Quotes for generator
 var TARBELL_QUOTES = [
     "And he calls his great organization a benefaction, and points to his church-going and charities as proof of his righteousness. This is supreme wrong-doing cloaked by religion. There is but one name for it -- hypocrisy.",
@@ -23,14 +30,21 @@ var TARBELL_QUOTES = [
 require([ 'jquery', 'js//views/NavigationView', 'moment', 'spin' ],
 function($, NavigationView, moment, Spinner) {
     // Navigation view: Use Backbone view from base app to generate nav bar
->>>>>>> v2_kpcc
     var nav = new NavigationView({
         el: $('#header'),
-        title: { label: 'Tarbell', url: '#about' },
+        title: { label: document.title, url: '' },
     }).render();
 
-    $('.doc-section pre code').each(function() {
-        hljs.highlightBlock(this);
-    });
-});
+    // Random Ida Tarbell quote generator: Simple jQuery DOM manipulation
+    var getQuote = function() {
+        return TARBELL_QUOTES[ Math.floor( Math.random() * TARBELL_QUOTES.length ) ];
+    }
+    $('#tarbell-quote').text('"' + getQuote() + '"');
 
+    // MomentJS: Using an AMD-compatible library
+    $('#moment').text(moment().format('MMMM Do YYYY, h:mm:ss a'));
+
+    // SpinJS: Using a non-AMD-compatible library and pure Javascript
+    var spinnerElement = document.getElementById('spinner');
+    var spinner = new Spinner().spin(spinnerElement);
+});
