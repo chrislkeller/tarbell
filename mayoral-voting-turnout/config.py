@@ -63,7 +63,7 @@ DEFAULT_CONTEXT = {
     'project_open_source': 'Built using <a href="https://github.com/newsapps/tarbell-template" target="blank">Tarbell</a>, <a href="http://www.highcharts.com/" target="blank">higcharts.js</a> &amp; <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.',
 
     # set to True to enable
-    'project_analytics': 'False',
+    'project_analytics': 'True',
 }
 
 """

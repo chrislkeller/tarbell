@@ -35,7 +35,7 @@
 
         {% if project_readmore_link %}
             <div id="content-article-buttons">
-                <a class="btn btn-info" href="{{ project_readmore_link }}">Read More</a>
+                <a class="btn btn-info" href="{{ project_readmore_link }}" target="_blank">Read More</a>
             </div>
         {% else %}
         {% endif %}
@@ -80,7 +80,14 @@
                 <div class="well">
 
                     <!-- begin filter for status -->
+
                     <!--
+
+                    Carryover: "Although the lease term has expired, the lessee remains on the property, and Met still continues to collect its lease/rent amount."
+                    Rent 1: "Main rent"
+                    Frequency 1: "How often it is paid."
+                    Rents 2 and 3 are anything “extra” like a yearly access road fee, yearly vault charges, power charges, parking charges, etc. Those charges are explained in the Frequency column. The terms could change between the start date and end date, if an amendment is executed.  The rent shown, however, is the current rent.
+
                     <div class="slider-filter">
                         <h5>FHWA Status</h5>
                         <ul class="inputs-list unstyled">
