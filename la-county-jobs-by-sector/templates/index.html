@@ -1,0 +1,166 @@
+{# The default project templates assumes a _base.html template to be extended. #}
+{% extends '_base.html' %}
+
+{% block meta %}
+{{ super() }}
+{% endblock %}
+
+{% block css %}
+{{ super() }}
+    <!-- additional css files for projects -->
+    <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.3.0/rickshaw.min.css">
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
+    <link href="{{ static_url('la-county-jobs-by-sector', '/css/project-styles.css') }}" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+
+{% block data_details_content %}
+    <div id="content-article">
+        <h4 class="kicker">{{ project_kicker|safe }}</h4>
+        <h1>{{ project_headline }}</h1>
+
+        <div id="content-article-metadata">
+            <p>
+            {% if project_credits %}
+                <span class="credits">{{ project_credits|safe }}</span> |
+            {% else %}
+            {% endif %}
+            <span class="pubdate">{{ project_pubdate }}</span>
+            </p>
+        </div>
+
+        {% if project_article_text %}
+            <div id="content-article-text">
+                {{ project_article_text|safe }}
+            </div>
+        {% else %}
+        {% endif %}
+
+        {% if project_readmore_link %}
+            <div id="content-article-buttons">
+                <a class="btn btn-info" href="{{ project_readmore_link }}" target="_blank">Read More</a>
+            </div>
+        {% else %}
+        {% endif %}
+
+        {% if project_data_instructions %}
+            <div id="content-explainer">
+                <p><span class="data-instructions">{{ project_data_instructions|safe }}</span></p>
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block data_visuals_content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div id="gif_container">
+                <img src="http://projects.scpr.org/static/charts/la-county-jobs-by-sector/images/la_county_jobs_since_2003.gif" width="100%" alt="Employment by sector: L.A. County health care jobs growing, construction and retail rebounding" />
+            </div>
+            <div id="chart_container">
+                <div id="legend"></div>
+               	<!--
+               	<div id="timeline"></div>
+                -->
+            	<div id="y_axis"></div>
+            	<div id="chart"></div>
+            	<div id="slider" class="visible-desktop"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block data_footer_content %}
+    {% if project_embed == 'True' %}
+        <div id="embed-this">
+            <p class="hidden-tablet hidden-phone"><span class="btn btn-warning" style="cursor:pointer;" onclick="embedBox()">Embed this map</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_sources %}
+        <div id="sources">
+            <p class="normal-display"><strong>Source(s): </strong>{{ project_sources|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    {% if project_open_source %}
+        <div id="open-source">
+            <p class="small-display">{{ project_open_source|safe }}</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+{% endblock %}
+
+{% block data_comments %}
+    {% if project_comments == 'True' %}
+        <div class="row-fluid">
+            <div class="span12">
+            <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    var disqus_shortname = 'kpcc-projects';
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    {% else %}
+    {% endif %}
+{% endblock %}
+
+{% block kpcc_scripts %}
+{{ super() }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/2.7.4/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/2.7.4/d3.layout.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.3.0/rickshaw.min.js"></script>
+    <script src="{{ static_url('la-county-jobs-by-sector', '/js/data-source.js') }}"></script>
+    <script src="{{ static_url('la-county-jobs-by-sector', '/js/Rickshaw.Graph.Annotate.js') }}"></script>
+    <script src="{{ static_url('la-county-jobs-by-sector', '/js/Rickshaw.Graph.Legend.Custom.js') }}"></script>
+    <script src="{{ static_url('la-county-jobs-by-sector', '/js/Rickshaw.Graph.Behavior.Series.Toggle.Custom.js') }}"></script>
+    <script src="{{ static_url('la-county-jobs-by-sector', '/js/data-script.js') }}"></script>
+{% endblock %}
+
+{% block kpcc_analytics %}
+    {% if project_analytics == 'True' %}
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-624724-5']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+        <script type="text/javascript">
+            var _sf_async_config={uid:2825,domain:"projects.scpr.org"};
+            (function(){
+                function loadChartbeat() {
+                    window._sf_endpt=(new Date()).getTime();
+                    var e = document.createElement('script');
+                    e.setAttribute('language', 'javascript');
+                    e.setAttribute('type', 'text/javascript');
+                    e.setAttribute('src',
+                        (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") + "js/chartbeat.js");
+                    document.body.appendChild(e);
+                };
+                var oldonload = window.onload;
+                window.onload = (typeof window.onload != 'function') ? loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        </script>
+    {% else %}
+
+    {% endif %}
+{% endblock %}
