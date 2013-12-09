@@ -54,8 +54,10 @@
         <a href="#Environment &amp; Science" class="name">Environment &amp; Science</a> |
         <a href="#General" class="name">General</a> |
         <a href="#Health" class="name">Health</a> |
+        <a href="#Immigration" class="name">Immigration</a> |
         <a href="#Politics" class="name">Politics</a> |
         <a href="#Seasonal" class="name">Seasonal</a> |
+        <a href="#Sports" class="name">Sports</a> |
         <a href="#Transportation" class="name">Transportation</a>
     </div>
 
@@ -315,6 +317,42 @@
         {% endif %}
     {% endfor %}
 
+    <a id="Immigration">
+        <h4 class="section-title">Immigration</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Immigration' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Published: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
     <a id="Politics">
         <h4 class="section-title">Politics</h4>
     </a>
@@ -356,6 +394,42 @@
     </a>
     {% for row in tarbell_inventory if row.order %}
         {% if row.topic == 'Seasonal' %}
+            <div class="row-fluid">
+                <div class="{{ row.topic }}">
+                    {% if row.image %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="{{ row.image }}" alt="{{ row.title }}" />
+                        </div>
+                    {% else %}
+                        <div class="span3">
+                            <h4 class="kicker">{{ row.type }}</h4>
+                            <img src="http://a.scpr.org/i/67eb4f212427a4c7cfcb1c266ad9862f/52905-full.jpg" alt="{{ row.title }}" />
+                        </div>
+                    {% endif %}
+                    <div class="span9">
+                        <h3><a href="{{ row.promoted }}" target="_blank">{{ row.title }}</a></h3>
+                        <p><span class="data-instructions">By {{ row.bylines }}</span></p>
+                        <p>{{ row.description|truncate(250, end=" ... ") }}<br />
+                    {% if row.readmore %}
+                        <a href="{{ row.readmore}}" target="_blank"><strong>Read the story</strong></a></p>
+                    {% else %}
+                        </p>
+                    {% endif %}
+                        <p><span class="data-instructions">Published: {{ row.created }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <a id="Sports">
+        <h4 class="section-title">Sports</h4>
+    </a>
+    {% for row in tarbell_inventory if row.order %}
+        {% if row.topic == 'Sports' %}
             <div class="row-fluid">
                 <div class="{{ row.topic }}">
                     {% if row.image %}

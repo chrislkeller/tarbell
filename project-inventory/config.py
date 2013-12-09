@@ -41,7 +41,7 @@ DEFAULT_CONTEXT = {
     'project_credits': '',
 
     # takes HTML. Will not render if blank
-    'project_pubdate': 'Updated September 16, 2013',
+    'project_pubdate': 'Updated November 27, 2013',
 
     # takes HTML. Will not render if blank
     'project_article_text': '<p>We\'ve collected our interactive maps, databases and charts so you can explore past projects by topic.</p>',
